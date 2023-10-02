@@ -1,0 +1,46 @@
+version: '3.8'
+
+volumes:
+  rabbitmqData:
+  rabbitmqLogData:
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.11.9-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=lalala
+      - RABBITMQ_DEFAULT_VHOST=vhost
+    volumes:
+      - rabbitmqData:/var/lib/rabbitmq/ 
+      - rabbitmqLogData:/var/log/rabbitmq
+      - ./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - ./rabbitmq/plugins:/usr/lib/rabbitmq/plugins
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+  
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: la!gmfgz@09La
+      ACCEPT_EULA: Y
+      MSSQL_AGENT_ENABLED: true
+    volumes:
+      - ./sqlserver/mydata:/var/opt/mssql/data
+    ports:
+      - "1435:1433"
+
+  debezium-server:
+    image: quay.io/debezium/server:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - ./debezium/conf:/debezium/conf
+      - ./debezium/data:/debezium/data
+    environment:
+      - database.ssl.mode=disable
+      - DEBEZIUM_TRUSTED_CERTIFICATES=trustServerCertificate=true
+    depends_on:
+      - sqlserver
+      - rabbitmq
