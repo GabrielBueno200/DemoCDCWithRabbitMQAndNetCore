@@ -8,6 +8,8 @@ A simple data streaming app with CDC (Change Data Capture) concepts applying Deb
 *source: <a href="https://cassio-bolba.medium.com/concepts-for-data-engineers-change-data-capture-cdc-9f4f7b007be9">Medium</a>*
 
 ## Demo approach
+<center>
+  <img src="https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore/assets/56837996/f77c3c86-466b-498f-9fea-286af8de7f29" />
+</center>
 
-![image](https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore/assets/56837996/1cf9ad97-b222-4d30-bf9c-be07ec5562b6)
 
