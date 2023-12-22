@@ -41,7 +41,7 @@ $ cd ./DemoCDCWithRabbitMQAndNetCore
 # Setup docker containers
 $ docker compose up -d
 
-# To the next steps, make sure all docker containers have already been completely initialized
+# For the next steps, make sure all docker containers have already been completely initialized
 
 # Access dotnet source project directory
 $ cd ./DataStreaming.Consumer/src
