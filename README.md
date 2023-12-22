@@ -1,14 +1,14 @@
 # DemoCDCWithRabbitMQAndNetCore
 
 ## 💻 About The Project
-
-A simple data streaming app with CDC (Change Data Capture) concepts applying Debezium, RabbitMQ, MassTransit, .NET Core and Microsoft SQL Server
-
-The project was developed to demonstrate the effective implementation of Change Data Capture (CDC) processes using the Debezium tool. It efficiently monitors and records changes in data, facilitating the synchronization of information across various destinations, including databases, indexers, private data stores, disks, and more.
+The project was developed to demonstrate the effective implementation of Change Data Capture (CDC) processes using the Debezium tool. It efficiently monitors and records changes in data, facilitating the synchronization of information across various destinations, including databases, private data stores, disks, and more.
 
 Change Data Capture (CDC) serves as a database technique designed to identify and capture changes (insertions, updates, deletions) in data. Instead of continuously scanning the entire database, CDC specifically tracks and captures only the data that has undergone changes since the last inspection. This approach streamlines the management and replication of updates, reducing the database workload and enhancing overall performance.
 
 In essence, CDC, particularly when integrated with tools like Debezium, facilitates a streamlined process for monitoring and capturing data changes. It enables the synchronization of these changes across different systems without overwhelming the database with unnecessary queries or scans.
+
+The demo implementation is a basic data streaming application incorporating Change Data Capture (CDC) principles using [Debezium](https://debezium.io/). It utilizes RabbitMQ as message broker to stream changes from a Microsoft SQL Server database. To consume these messages, a simple .NET Core consumer app was developed using [MassTransit](https://masstransit.io/).
+
 
 ## Demo approach
 <center>
