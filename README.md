@@ -19,7 +19,7 @@ The demo implementation is a basic data streaming application incorporating Chan
 The demo utilizes a database called `TestDatabase` featuring a table named `Person` with enabled Change Data Capture (CDC).
 
 ### RabbitMQ
-The demo utilizes the RabbitMq message broker configured through `rabbitmq` docker-compose service. This service is started with a pre-configured exchange `test.TestDatabase.dbo.Person`, binded with a queue named `person-cdc-queue`. Every change captured by debezium using CDC is published in this exchange and routed to this queue as a message.
+The demo utilizes the RabbitMQ Message Broker configured through `rabbitmq` docker-compose service. This service is started with a pre-configured exchange `test.TestDatabase.dbo.Person`, binded with a queue named `person-cdc-queue`. Every change captured by debezium using CDC is published in this exchange and routed to this queue as a message.
 
 ### Target System: .NET Core Consumer
 The demo utilizes a .NET Core console application using a MassTransit consumer named `PersonConsumer`, which listen and consume all `person-cdc-queue` messages .
