@@ -23,7 +23,7 @@ The demo uses a database called `TestDatabase` featuring a table named `Person` 
 - The exchange name was configured according debezium documentation: `topic_prefix.DatabaseName.dbo.TableName`. Prefix can be configured in the [application.properties](https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore/blob/main/docker_volumes/debezium/conf/application.properties) file.
 
 ### Target System: .NET Core Consumer
-The demo implements a .NET Core console application using a MassTransit consumer named `PersonConsumer`, which listen and consume all `person-cdc-queue` messages .
+The demo implements a .NET Core console application using a MassTransit consumer named `PersonConsumer`, which listens and consumes all `person-cdc-queue` messages .
 
 ## Requirements
 - You must have docker and docker-compose installed 
