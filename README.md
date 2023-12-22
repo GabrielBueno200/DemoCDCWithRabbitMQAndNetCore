@@ -36,16 +36,16 @@ The demo utilizes a .NET Core console application using a MassTransit consumer n
 $ git clone https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore.git
 
 # Access the project folder in your terminal / cmd
-$ cd DemoCDCWithRabbitMQAndNetCore
+$ cd ./DemoCDCWithRabbitMQAndNetCore
 
 # Setup docker containers
 $ docker compose up -d
 
 # Access dotnet source project directory
-cd ./DataStreaming.Consumer/src
+$ cd ./DataStreaming.Consumer/src
 
 # Run dotnet app
-dotnet run build
+$ dotnet run build
 ```
 
 
