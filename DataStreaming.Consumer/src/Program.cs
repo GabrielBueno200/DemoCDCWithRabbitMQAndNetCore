@@ -3,42 +3,38 @@ using DataStreaming.Consumer;
 using MassTransit;
 using Microsoft.Extensions.Hosting;
 
-static IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args)
-        .ConfigureServices((hostContext, services) =>
+const string rabbitMqHost = "localhost";
+const int rabbitMqPort = 5672;
+const string rabbitMqUsername = "guest";
+const string rabbitMqPassword = "guest";
+const string rabbitMqvHost = "vhost";
+const string rabbitMqQueueName = "person-cdc-queue";
+
+await Host.CreateDefaultBuilder(args)
+    .ConfigureServices((hostContext, services) =>
+    {
+        services.AddMassTransit(configuration =>
         {
-            services.AddMassTransit(x =>
+            configuration.UsingRabbitMq((context, configuration) =>
             {
-                var rabbitMqHost = "localhost";
-                var rabbitMqPort = 5672;
-                var rabbitMqUsername = "admin";
-                var rabbitMqPassword = "lalala";
-                var rabbitMqvHost = "vhost";
-                var rabbitMqQueueName = "dbo.Person";
-
-                x.UsingRabbitMq((context, cfg) =>
+                configuration.Host(new Uri($"rabbitmq://{rabbitMqHost}:{rabbitMqPort}/{rabbitMqvHost}"), host =>
                 {
-                    cfg.Host(new Uri($"rabbitmq://{rabbitMqHost}:{rabbitMqPort}/{rabbitMqvHost}"), h =>
-                    {
-                        h.Username(rabbitMqUsername);
-                        h.Password(rabbitMqPassword);
-                    });
-
-                    cfg.ReceiveEndpoint(rabbitMqQueueName, e =>
-                    {
-                        e.ConfigureConsumeTopology = false;
-                        
-                        e.DefaultContentType = new ContentType("application/json");
-                        e.UseRawJsonDeserializer();
-
-                        e.UseMessageRetry(retryConfig => retryConfig.Interval(2, 100));
-                        e.Consumer<PersonConsumer>();
-                    });
-
+                    host.Username(rabbitMqUsername);
+                    host.Password(rabbitMqPassword);
                 });
+
+                configuration.ReceiveEndpoint(rabbitMqQueueName, endpoint =>
+                {
+                    endpoint.ConfigureConsumeTopology = false;
+
+                    endpoint.DefaultContentType = new ContentType("application/json");
+                    endpoint.UseRawJsonDeserializer();
+
+                    endpoint.UseMessageRetry(retryConfig => retryConfig.Interval(2, 100));
+                    endpoint.Consumer<PersonConsumer>();
+                });
+
             });
         });
-
-using var host = CreateHostBuilder(args).Build();
-
-host.Run();
+    })
+    .RunConsoleAsync();

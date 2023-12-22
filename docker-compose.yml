@@ -1,46 +1,51 @@
-version: '3.8'
-
-volumes:
-  rabbitmqData:
-  rabbitmqLogData:
+version: '3.9'
 
 services:
   rabbitmq:
     image: rabbitmq:3.11.9-management-alpine
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=lalala
-      - RABBITMQ_DEFAULT_VHOST=vhost
     volumes:
-      - rabbitmqData:/var/lib/rabbitmq/ 
-      - rabbitmqLogData:/var/log/rabbitmq
-      - ./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
-      - ./rabbitmq/plugins:/usr/lib/rabbitmq/plugins
+      - ./docker_volumes/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - type: bind
+        source: ./docker_volumes/rabbitmq/rabbitmq-defs.json
+        target: /etc/rabbitmq/rabbitmq-defs.json
+      - type: bind
+        source: ./docker_volumes/rabbitmq/rabbitmq.conf
+        target: /etc/rabbitmq/rabbitmq.conf
     ports:
       - '5672:5672'
       - '15672:15672'
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
   
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
+    user: root
+    platform: linux
     environment:
+      MSSQL_PID: Standard
       SA_PASSWORD: la!gmfgz@09La
       ACCEPT_EULA: Y
       MSSQL_AGENT_ENABLED: true
     volumes:
-      - ./sqlserver/mydata:/var/opt/mssql/data
+      - ./docker_volumes/sqlserver/mydata:/var/opt/mssql/data
     ports:
-      - "1435:1433"
+      - "1433:1433"
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P la!gmfgz@09La -Q 'SELECT 1' || exit 1"]
+      interval: 1s
+      retries: 20
 
   debezium-server:
     image: quay.io/debezium/server:latest
     ports:
       - 8080:8080
     volumes:
-      - ./debezium/conf:/debezium/conf
-      - ./debezium/data:/debezium/data
-    environment:
-      - database.ssl.mode=disable
-      - DEBEZIUM_TRUSTED_CERTIFICATES=trustServerCertificate=true
+      - ./docker_volumes/debezium/conf:/debezium/conf
     depends_on:
-      - sqlserver
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
+      sqlserver:
+        condition: service_healthy

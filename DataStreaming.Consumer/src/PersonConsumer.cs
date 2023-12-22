@@ -9,24 +9,22 @@ public class PersonConsumer : IConsumer<PersonMessage>
     {
         var message = context.Message;
 
-        PersonDataStreamingSpecification specification = new(message);
-
-        if (specification.IsInsert)
+        if (message.IsInsert)
             Console.WriteLine(@$"Inserted a new person: 
                 {JsonSerializer.Serialize(message.Payload.After)}
             ");
 
-        else if (specification.IsUpdate)
+        if (message.IsUpdate)
             Console.WriteLine(@$"Updated a person: 
                 Before: {JsonSerializer.Serialize(message.Payload.Before)}
                 After: {JsonSerializer.Serialize(message.Payload.After)}
             ");
 
-        else if (specification.IsDelete)
+        if (message.IsDelete)
             Console.WriteLine(@$"Deleted a person: 
                 Deleted person: {JsonSerializer.Serialize(message.Payload.Before)}
             ");
 
-        await Task.FromResult(() => Console.WriteLine("Message consumed. Here we can put a code to replicate data to another service"));
+        await Task.FromResult(() => Console.WriteLine("Message consumed. Here we can put some logic to traffic data to another target system"));
     }
 }
