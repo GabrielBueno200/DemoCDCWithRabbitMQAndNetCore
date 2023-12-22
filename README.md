@@ -1,6 +1,6 @@
 # DemoCDCWithRabbitMQAndNetCore
 
-## 💻 About The Project - CDC Demo With Debezium, RabbitMQ, .Net Core and SQL Server
+## 💻 About The Project
 
 A simple data streaming app with CDC (Change Data Capture) concepts applying Debezium, RabbitMQ, MassTransit, .NET Core and Microsoft SQL Server
 
@@ -15,4 +15,16 @@ In essence, CDC, particularly when integrated with tools like Debezium, facilita
   <img src="https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore/assets/56837996/f77c3c86-466b-498f-9fea-286af8de7f29" />
 </center>
 
+🚀 How To Run
+# Clone the repository
+$ git clone https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore.git
+
+# Access the project folder in your terminal / cmd
+$ cd DemoCDCWithRabbitMQAndNetCore
+
+# Setup docker containers
+$ docker compose up -d
+
+## Requirements
+- You must have docker engine installed 
 
