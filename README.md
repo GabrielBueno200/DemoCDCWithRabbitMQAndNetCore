@@ -16,7 +16,7 @@ In essence, CDC, particularly when integrated with tools like Debezium, facilita
 </center>
 
 ## Requirements
-- You must have docker engine installed 
+- You must have docker and docker-compose installed 
 
 ## 🚀 How To Run
 
