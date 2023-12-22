@@ -22,8 +22,8 @@ services:
   
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    user: root
-    platform: linux
+    user: root # remove if you're using Windows
+    platform: linux # remove if you're using Windows
     environment:
       MSSQL_PID: Standard
       SA_PASSWORD: la!gmfgz@09La
