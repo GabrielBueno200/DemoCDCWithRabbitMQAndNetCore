@@ -19,7 +19,8 @@ The demo implementation is a basic data streaming application incorporating Chan
 The demo utilizes a database called `TestDatabase` featuring a table named `Person` with enabled CDC (see [enable_cdc.sql](https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore/blob/main/enable_cdc.sql)).
 
 ### RabbitMQ
-The demo utilizes the RabbitMQ Message Broker configured through `rabbitmq` docker-compose service. This service is started with a pre-configured exchange `test.TestDatabase.dbo.Person`, binded with a queue named `person-cdc-queue`. Every change captured by debezium using CDC is published in this exchange and routed to this queue as a message (see [rabbitmq-defs.json](https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore/blob/main/docker_volumes/rabbitmq/rabbitmq-defs.json)).
+- The demo utilizes the RabbitMQ Message Broker configured through `rabbitmq` docker-compose service. This service is started with a pre-configured exchange `test.TestDatabase.dbo.Person`, binded with a queue named `person-cdc-queue`. Every change captured by debezium using CDC is published in this exchange and routed to this queue as a message (see [rabbitmq-defs.json](https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore/blob/main/docker_volumes/rabbitmq/rabbitmq-defs.json)).
+- The exchange name was configured according debezium documentation: `topic_prefix.DatabaseName.dbo.TableName`. Prefix can be configured in the [application.properties](https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore/blob/main/docker_volumes/debezium/conf/application.properties) file.
 
 ### Target System: .NET Core Consumer
 The demo utilizes a .NET Core console application using a MassTransit consumer named `PersonConsumer`, which listen and consume all `person-cdc-queue` messages .
