@@ -17,6 +17,7 @@ In essence, CDC, particularly when integrated with tools like Debezium, facilita
 
 ## Requirements
 - You must have docker and docker-compose installed 
+- .NET 8 SDK
 
 ## 🚀 How To Run
 
@@ -29,6 +30,12 @@ $ cd DemoCDCWithRabbitMQAndNetCore
 
 # Setup docker containers
 $ docker compose up -d
+
+# Access dotnet source project directory
+cd ./DataStreaming.Consumer/src
+
+# Run dotnet app
+dotnet run build
 ```
 
 
