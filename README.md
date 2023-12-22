@@ -41,11 +41,12 @@ $ cd ./DemoCDCWithRabbitMQAndNetCore
 # Setup docker containers
 $ docker compose up -d
 
+# To the next steps, make sure all docker containers have already been completely initialized
+
 # Access dotnet source project directory
 $ cd ./DataStreaming.Consumer/src
 
 # Run dotnet app
 $ dotnet run build
 ```
-
-
+After execute the steps above, you can monitor RabbitMQ queue accessing `http://localhost:15672/#/queues`. Finally, make some change (INSERT, UPDATE or DELETE) on `Person` table and check messages being published to the queue. The file [enable_cdc.sql](https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore/blob/main/enable_cdc.sql) has some example operations.
