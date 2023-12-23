@@ -5,10 +5,19 @@ The project was developed to demonstrate the effective implementation of [Change
 
 Change Data Capture (CDC) serves as a database technique designed to identify and capture changes (insertions, updates, deletions) in data. Instead of continuously scanning the entire database, CDC specifically tracks and captures only the data that has undergone changes since the last inspection. This approach streamlines the management and replication of updates, reducing the database workload and enhancing overall performance.
 
-In essence, CDC, particularly when integrated with tools like Debezium, facilitates a streamlined process for monitoring and capturing data changes. It enables the synchronization of these changes across different systems without overwhelming the database with unnecessary queries or scans. Of course, we use trigger in this state. But, CDC is more performatic than trigger. The reason is it serves all these operations by reading the transaction log file of the database.
+In essence, CDC, particularly when integrated with tools like Debezium, facilitates a streamlined process for monitoring and capturing data changes. It enables the synchronization of these changes across different systems without overwhelming the database with unnecessary queries or scans.
 
 The demo implementation is a basic data streaming application incorporating Change Data Capture (CDC) principles using [Debezium](https://debezium.io/). It utilizes RabbitMQ as message broker to stream changes from a Microsoft SQL Server database. To consume these messages, a simple .NET Core consumer app was developed using [MassTransit](https://masstransit.io/).
 
+## Why use CDC with Debezium instead trigger-based CDC?
+
+The reason to use Debezium instead trigger is because its CDC approach is log-based. Of course, we use trigger to monitore state events, but log-based CDC is better.
+
+Trigger-based CDC poses various challenges, including complexity in maintaining and updating triggers as applications evolve; database performance degradation due to increased logic execution; resource overhead from accumulated triggers impacting scalability; dependencies on application changes leading to potential conflicts; maintenance and troubleshooting difficulties; risks associated with cascading triggers; and resource consumption affecting system performance in high-concurrency environments.
+
+In contrast, log-based CDC offers several advantages: It operates without impacting the production database's performance, as it doesn't require scanning operational tables or making application-level changes. It efficiently captures new transactions, including inserts, updates, and deletes, by reading the transaction log from the source database. This method is less intrusive compared to trigger-based CDC, ensuring minimal interference with the database operations. Additionally, log-based CDC remains consistent across different relational databases, despite variations in the transaction log's name, making it a reliable and scalable solution for tracking changes.
+
+Furthermore, when paired with Debezium, log-based CDC not only efficiently captures changes from transaction logs but also enables intercepting these transactions across diverse messaging systems. This integration facilitates the consumption of these changes in various technologies and programming languages, enhancing the flexibility and adaptability of the CDC process.
 
 ## Demo approach
 <center>
@@ -50,3 +59,7 @@ $ cd ./DataStreaming.Consumer/src
 $ dotnet run build
 ```
 After execute the steps above, you can monitor RabbitMQ queue accessing `http://localhost:15672/#/queues` using some web browser (both login and password are "guest", as specified in the configuration files). Then, make some change (INSERT, UPDATE or DELETE) on `Person` table and check messages being published to the queue. After that you can visualize message being consumed by the running .NET Core Consumer logs.
+
+## References
+
+[Types Of Change Data Capture (CDC) For SQL: Choose Wisely](https://estuary.dev/sql-change-data-capture/)https://estuary.dev/sql-change-data-capture/
