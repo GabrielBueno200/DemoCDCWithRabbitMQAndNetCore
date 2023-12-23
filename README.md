@@ -11,13 +11,13 @@ The demo implementation is a basic data streaming application incorporating Chan
 
 ## Why use CDC with Debezium instead trigger-based CDC?
 
-The reason to use Debezium instead trigger is because its CDC approach is log-based. Of course, we use trigger to monitore state events, but log-based CDC is better.
+The reason to use Debezium instead trigger is because its CDC approach is log-based. Of course, we can use trigger to monitore state events, but log-based CDC is better.
 
 Trigger-based CDC poses various challenges, including complexity in maintaining and updating triggers as applications evolve; database performance degradation due to increased logic execution; resource overhead from accumulated triggers impacting scalability; dependencies on application changes leading to potential conflicts; troubleshooting difficulties; risks associated with cascading triggers; and resource consumption affecting system performance in high-concurrency environments.
 
 In contrast, log-based CDC offers several advantages: It operates without impacting the production database's performance, as it doesn't require scanning operational tables or making application-level changes. It efficiently captures new transactions, including inserts, updates, and deletes, by reading the transaction log from the source database. This method is less intrusive compared to trigger-based CDC, ensuring minimal interference with the database operations. Additionally, log-based CDC remains consistent across different relational databases, despite variations in the transaction log's name, making it a reliable and scalable solution for tracking changes.
 
-Furthermore, when paired with Debezium, log-based CDC not only efficiently captures changes from transaction logs but also enables intercepting these transactions across diverse messaging systems. This integration facilitates the consumption of these changes in various technologies and programming languages, enhancing the flexibility and adaptability of the CDC process.
+Furthermore, when paired with Debezium, log-based CDC not only efficiently captures changes from transaction logs but also enables intercepting these transactions across diverse messaging systems, like Kafka, RabbitMQ, Amazon SQS and others. This integration facilitates the consumption of these changes in various technologies and programming languages, enhancing the flexibility and adaptability of the CDC process.
 
 ## Demo approach
 <center>
