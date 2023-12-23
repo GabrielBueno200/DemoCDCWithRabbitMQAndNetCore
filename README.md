@@ -62,4 +62,4 @@ After execute the steps above, you can monitor RabbitMQ queue accessing `http://
 
 ## References
 
-[Types Of Change Data Capture (CDC) For SQL: Choose Wisely](https://estuary.dev/sql-change-data-capture/)https://estuary.dev/sql-change-data-capture/
+[Types Of Change Data Capture (CDC) For SQL: Choose Wisely](https://estuary.dev/sql-change-data-capture/)
