@@ -11,7 +11,7 @@ The demo implementation is a basic data streaming application incorporating Chan
 
 ## Why use CDC with Debezium instead trigger-based CDC?
 
-The reason to use Debezium instead trigger is because its CDC approach is log-based. Of course, we can use trigger to monitore state events, but log-based CDC is better.
+The reason to use Debezium instead trigger is because its CDC approach is log-based. Of course, we can use trigger to monitore change events, but log-based CDC is better.
 
 Trigger-based CDC poses multiple challenges, such as complex maintenance, database performance degradation due to increased logic execution, scalability concerns due to trigger accumulation, dependency on application changes leading to potential conflicts, troubleshooting complexities, and resource consumption in high-concurrency environments. In contrast, log-based CDC, especially when paired with Debezium, operates efficiently without impacting database performance, capturing changes seamlessly from database transaction logs. This method is less intrusive, remains consistent across different databases, and integrates smoothly with diverse messaging systems like Kafka, RabbitMQ, and Amazon SQS. This integration facilitates the consumption of these changes in various technologies and programming languages, enhancing the flexibility and adaptability of the CDC process.
 
