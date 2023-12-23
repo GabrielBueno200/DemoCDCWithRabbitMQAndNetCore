@@ -57,5 +57,6 @@ $ dotnet run build
 After execute the steps above, you can monitor RabbitMQ queue accessing `http://localhost:15672/#/queues` using some web browser (both login and password are "guest", as specified in the configuration files). Then, make some change (INSERT, UPDATE or DELETE) on `Person` table and check messages being published to the queue. After that you can visualize message being consumed by the running .NET Core Consumer logs.
 
 ## References
-
 [Types Of Change Data Capture (CDC) For SQL: Choose Wisely](https://estuary.dev/sql-change-data-capture/)
+
+[Debezium connector for SQL Server](https://debezium.io/documentation/reference/2.5/connectors/sqlserver.html)
