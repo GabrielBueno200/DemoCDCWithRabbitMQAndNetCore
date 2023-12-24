@@ -15,6 +15,15 @@ Trigger-based CDC relies on database triggers, operating at the SQL level, with 
 
 Trigger-based CDC poses multiple challenges, such as complex maintenance; database performance degradation due to increased logic execution; scalability concerns due to trigger accumulation; dependency on application changes leading to potential conflicts; troubleshooting complexities; experience in SQL as it's restricted at the SQL level; and resource consumption in high-concurrency environments. In contrast, log-based CDC, especially when paired with Debezium, operates efficiently without impacting database performance, capturing changes seamlessly from database transaction logs. This method is less intrusive, remains consistent across different databases, and integrates smoothly with diverse messaging systems like Kafka, RabbitMQ, and Amazon SQS. This integration facilitates the consumption of these changes in various technologies and programming languages, enhancing the flexibility and adaptability of the CDC process and removing logic and complexity from database.
 
+## Is there an open source alternative to Debezium?
+
+Yes, there are some open-source alternatives to Debezium. [Maxwell’s Daemon,](https://maxwells-daemon.io/) [Spinal Tap](https://github.com/airbnb/SpinalTap) and [DBLog](https://netflixtechblog.com/dblog-a-generic-change-data-capture-framework-69351fb9099b) are examples. There also exists hybrid and paid alternatives to Debezium like [Confluent](https://www.confluent.io/learn/change-data-capture/), [Estuary](https://estuary.dev/vs-debezium/) and others.
+
+> Of the open-source options available, Debezium emerged as the clear winner. It is by far the most active open-source CDC project. It has a strong group of core maintainers who are actively contributing and responsive. Debezium also has the ability to support a variety of different databases, datastores and message oriented middlewares (Apache Kafka, RabbitMQ, Amazon Kinesis, etc) 
+> 
+*source: [Shopify](https://shopify.engineering/capturing-every-change-shopify-sharded-monolith)*
+
+
 ## Demo approach
 <center>
   <img src="https://github.com/GabrielBueno200/DemoCDCWithRabbitMQAndNetCore/assets/56837996/f77c3c86-466b-498f-9fea-286af8de7f29" />
@@ -62,3 +71,5 @@ After execute the steps above, you can monitor RabbitMQ queue accessing `http://
 [Debezium connector for SQL Server](https://debezium.io/documentation/reference/2.5/connectors/sqlserver.html)
 
 [Debezium Server - RabbitMQ Stream](https://debezium.io/documentation/reference/stable/operations/debezium-server.html#_rabbitmq_stream)
+
+[Capturing Every Change From Shopify’s Sharded Monolith](https://shopify.engineering/capturing-every-change-shopify-sharded-monolith)
