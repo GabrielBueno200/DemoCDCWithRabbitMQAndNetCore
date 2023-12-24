@@ -15,7 +15,7 @@ Trigger-based CDC relies on database triggers, operating at the SQL level, with 
 
 Trigger-based CDC poses multiple challenges, such as complex maintenance; database performance degradation due to increased logic execution; scalability concerns due to trigger accumulation; dependency on application changes leading to potential conflicts; troubleshooting complexities; experience in SQL as it's restricted at the SQL level; and resource consumption in high-concurrency environments. In contrast, log-based CDC, especially when paired with Debezium, operates efficiently without impacting database performance, capturing changes seamlessly from database transaction logs. This method is less intrusive, remains consistent across different databases, and integrates smoothly with diverse messaging systems like Kafka, RabbitMQ, and Amazon SQS. This integration facilitates the consumption of these changes in various technologies and programming languages, enhancing the flexibility and adaptability of the CDC process and removing logic and complexity from database.
 
-## Is there an open source alternative to Debezium?
+## Is there an alternative open source CDC tool to Debezium?
 
 Yes, there are some open-source alternatives to Debezium. [Maxwell’s Daemon,](https://maxwells-daemon.io/) [Spinal Tap](https://github.com/airbnb/SpinalTap) and [DBLog](https://netflixtechblog.com/dblog-a-generic-change-data-capture-framework-69351fb9099b) are examples. There also exists hybrid and paid alternatives to Debezium like [Confluent](https://www.confluent.io/learn/change-data-capture/), [Estuary](https://estuary.dev/vs-debezium/) and others.
 
