@@ -1,4 +1,4 @@
-﻿using System.Net.Mime;
+using System.Net.Mime;
 using DataStreaming.Consumer;
 using MassTransit;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +15,8 @@ await Host.CreateDefaultBuilder(args)
     {
         services.AddMassTransit(configuration =>
         {
+            configuration.AddConsumer<PersonConsumer>();
+
             configuration.UsingRabbitMq((context, configuration) =>
             {
                 configuration.Host(new Uri($"rabbitmq://{rabbitMqHost}:{rabbitMqPort}/{rabbitMqvHost}"), host =>
